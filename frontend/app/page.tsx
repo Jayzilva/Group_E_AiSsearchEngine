@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from "react";
 export default function ApiFetch() {
   const [file, setFile] = useState<File | null>(null);
   const [summary, setSummary] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -23,6 +24,8 @@ export default function ApiFetch() {
     const formData = new FormData();
     formData.append("file", file);
 
+    setLoading(true);
+
     try {
       const response = await axios.post(
         "http://127.0.0.1:5000/summarize_pdf",
@@ -36,6 +39,8 @@ export default function ApiFetch() {
       setSummary(response.data.summary);
     } catch (error) {
       console.error("Error summarizing PDF:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -57,11 +62,17 @@ export default function ApiFetch() {
           Upload and Summarize
         </button>
       </form>
-      {summary && (
-        <div className="mt-4 p-4 bg-gray-100 rounded-lg">
-          <h2 className="text-xl font-semibold text-gray-800">Summary:</h2>
-          <p className="text-gray-700">{summary}</p>
+      {loading ? (
+        <div className="flex justify-center items-center mt-4">
+          <div className="loader border-t-4 border-blue-500 border-solid rounded-full w-8 h-8 animate-spin"></div>
         </div>
+      ) : (
+        summary && (
+          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+            <h2 className="text-xl font-semibold text-gray-800">Summary:</h2>
+            <p className="text-gray-700">{summary}</p>
+          </div>
+        )
       )}
     </div>
   );
