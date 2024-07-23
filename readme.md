@@ -3,7 +3,10 @@
 This project is a PDF summarization API using Python, Flask, and OpenAI's GPT-3.5. It allows users to upload a PDF and ask questions about its content.
 
 ### Screenshots :
+- Screenshot One
 ![ScreenShot 1](https://github.com/PasanGunathilaka/Group_E_AiSsearchEngine/blob/main/frontend/public/sc1.jpeg)
+
+- Screenshot Two
 ![Screenshot 2](https://github.com/PasanGunathilaka/Group_E_AiSsearchEngine/blob/main/frontend/public/sc2.jpeg)
 
 
